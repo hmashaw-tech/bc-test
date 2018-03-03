@@ -7,8 +7,8 @@ const assert = require('assert')
 const Block = require('../src/Block')
 const Blockchain = require('../src/Blockchain')
 
-describe('Create new Blockchain', () => {
-    it('-- can creates a new blockchain', (done) => {
+describe('The Blockchain Tester ...', () => {
+    it('-- can create a new blockchain', (done) => {
         let demoBlockchain = new Blockchain()
         assert(demoBlockchain.blockchain.length === 1)
         assert(demoBlockchain.blockchain[0].data === 'Genesis Block')
@@ -43,5 +43,13 @@ describe('Create new Blockchain', () => {
         assert(demoBlockchain.isChainValid() === false)
         done()
     })
+
+
+    it('-- utilizes Proof of Work - blocks have 0*difficulty prefix', (done) => {
+        let demoBlockchain = new Blockchain()
+        demoBlockchain.addBlock(new Block(1, '1/1/1970', { amount: 100 }))
+        assert(demoBlockchain.blockchain[1].hash.indexOf('000') !== -1)
+        done()
+    }).timeout(4000)
 })
 
